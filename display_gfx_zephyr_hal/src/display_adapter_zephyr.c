@@ -24,19 +24,19 @@ struct display_adapter_descriptor display_adapter_create_zephyr_ssd1327(enum dis
 
     uint16_t buffer_size = 0;
     switch (bitmode) {
-        case (DISPLAY_ADAPTER_GRAYSCALE_BITMODE_1_BIT): {
+        case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_1_BIT): {
             buffer_size = (128 * 128) >> 3;
             break;
         }
-        case (DISPLAY_ADAPTER_GRAYSCALE_BITMODE_2_BIT): {
+        case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_2_BIT): {
             buffer_size = (128 * 128) >> 2;
             break;
         }
-        case (DISPLAY_ADAPTER_GRAYSCALE_BITMODE_4_BIT): {
+        case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_4_BIT): {
             buffer_size = (128 * 128) >> 1;
             break;
         }
-        case (DISPLAY_ADAPTER_COLOR_BITMODE_8_BIT): {
+        case (DISPLAY_ADAPTER_BITMODE_COLOR_8_BIT): {
             // TODO: Error
             break;
         }
@@ -72,9 +72,9 @@ struct display_adapter_descriptor display_adapter_create_zephyr_ssd1306_heap(enu
         .width = cap.x_resolution,
         .height = cap.y_resolution,
         .rotation = rotation,
-        .bitmode = DISPLAY_ADAPTER_GRAYSCALE_BITMODE_1_BIT,
+        .bitmode = DISPLAY_ADAPTER_BITMODE_GRAYSCALE_1_BIT,
         .addressing_mode = addressing_mode,
-        .device_id = DISPLAY_ADAPTER_DEVICE_ID_ZEPHYR_SSD1306,
+        .device_id = DISPLAY_ADAPTER_DEVICE_ID_ZEPHYR_SSD1306A,
     };
 
     return result;
