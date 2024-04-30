@@ -1,10 +1,15 @@
 // Module
 #define MODULE settings_wrapper
 
+
+
 // Headder
 #include "settings_wrapper.h"
 
+
+
 // Zephyr Header
+#ifdef __ZEPHYR__
 #ifdef CONFIG_LOG
 #include "logging/log.h"
 #endif
@@ -15,12 +20,17 @@
 #ifdef CONFIG_LOG
 LOG_MODULE_REGISTER(MODULE);
 #endif
+#endif
+
+
 
 struct direct_immediate_value {
     size_t len;
     void *dest;
     uint8_t fetched;  // boolean
 };
+
+
 
 static int settings_wrapper_direct_loader_immediate_value(const char *name, size_t len, settings_read_cb read_cb, void *cb_arg, void *param) {
     const char *next;
@@ -49,6 +59,8 @@ static int settings_wrapper_direct_loader_immediate_value(const char *name, size
     return 0;
 }
 
+
+
 int settings_wrapper_load_single_value(const char *name, void *dest, size_t len) {
     int err;
     struct direct_immediate_value dov;
@@ -67,14 +79,8 @@ int settings_wrapper_load_single_value(const char *name, void *dest, size_t len)
     return err;
 }
 
-/**
- * @brief Set the tings wrapper save single value object
- *
- * @param name
- * @param value
- * @param len
- * @return int
- */
+
+
 int settings_wrapper_save_single_value(const char *name, void *value, size_t len) {
     int err = settings_save_one(name, value, len);
     return err;

@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+
+
 /**
  * @brief
  *
@@ -16,6 +18,8 @@ extern "C" {
  * @return int
  */
 int settings_wrapper_load_single_value(const char *name, void *dest, size_t len);
+
+
 
 /**
  * @brief

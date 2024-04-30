@@ -3,6 +3,8 @@
 // Library Header
 #include "settings_wrapper.h"
 
+
+
 int settings_manager_load_all(struct settings_manager_entry_identifier entries[], size_t entry_count) {
     int err = 0;
     for (uint8_t i = 0; i < entry_count; i++) {
@@ -14,6 +16,8 @@ int settings_manager_load_all(struct settings_manager_entry_identifier entries[]
     }
     return err;
 }
+
+
 
 int settings_manager_persist_all(struct settings_manager_entry_identifier entries[], size_t entry_count) {
     int err = 0;
@@ -27,6 +31,8 @@ int settings_manager_persist_all(struct settings_manager_entry_identifier entrie
     return err;
 }
 
+
+
 int settings_manager_persist_single(struct settings_manager_entry_identifier entries[], uint8_t setting_id) {
     int err = 0;
     struct settings_manager_entry_identifier id = entries[setting_id];
@@ -37,6 +43,8 @@ int settings_manager_persist_single(struct settings_manager_entry_identifier ent
     }
     return err;
 }
+
+
 
 void settings_manager_set_all_default(struct settings_manager_entry_identifier entries[], size_t entry_count) {
     for (uint8_t i = 0; i < entry_count; i++) {

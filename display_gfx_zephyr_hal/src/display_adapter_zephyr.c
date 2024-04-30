@@ -4,7 +4,7 @@
 
 void display_adapter_zephyr_write_buffer_to_display(const struct display_adapter_descriptor* adapter, uint8_t x, uint8_t y, void* payload) {
     int err = 0;
-    
+
     // Create buffer description
     const struct display_buffer_descriptor buf_desc = {
         .buf_size = adapter->buffer_size,
@@ -16,6 +16,7 @@ void display_adapter_zephyr_write_buffer_to_display(const struct display_adapter
 
     err = display_write((const struct device*)payload, 0, 0, &buf_desc, adapter->display_buffer);
 }
+
 
 
 struct display_adapter_descriptor display_adapter_create_zephyr_ssd1327(enum display_adapter_bitmode_t bitmode, enum display_adapter_rotation_t rotation, const struct device* display_device) {
@@ -58,7 +59,9 @@ struct display_adapter_descriptor display_adapter_create_zephyr_ssd1327(enum dis
     return result;
 }
 
-struct display_adapter_descriptor display_adapter_create_zephyr_ssd1306_heap(enum display_adapter_rotation_t rotation, const struct device* display_device, enum display_adapter_buffer_addressing_mode_t addressing_mode) {
+
+
+struct display_adapter_descriptor display_adapter_create_zephyr_ssd1306_heap(enum display_adapter_buffer_addressing_mode_t addressing_mode, enum display_adapter_rotation_t rotation, const struct device* display_device) {
     struct display_capabilities cap;
     display_get_capabilities(display_device, &cap);
 
