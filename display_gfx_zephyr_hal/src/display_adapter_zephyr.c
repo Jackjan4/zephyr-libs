@@ -2,7 +2,7 @@
 
 
 
-void display_adapter_zephyr_write_buffer_to_display(const struct display_adapter_descriptor* adapter, uint8_t x, uint8_t y, void* payload) {
+void display_adapter_zephyr_write_buffer_to_display(const struct display_adapter_descriptor* adapter, uint8_t x, uint8_t y) {
     int err = 0;
 
     // Create buffer description
@@ -13,8 +13,7 @@ void display_adapter_zephyr_write_buffer_to_display(const struct display_adapter
         .pitch = adapter->width,
     };
 
-
-    err = display_write((const struct device*)payload, 0, 0, &buf_desc, adapter->display_buffer);
+    err = display_write((const struct device*)adapter->payload, 0, 0, &buf_desc, adapter->display_buffer);
 }
 
 
@@ -26,19 +25,22 @@ struct display_adapter_descriptor display_adapter_create_zephyr_ssd1327(enum dis
     uint16_t buffer_size = 0;
     switch (bitmode) {
         case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_1_BIT): {
+            // We save 8 pixel per byte
             buffer_size = (128 * 128) >> 3;
             break;
         }
         case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_2_BIT): {
+            // We save 4 pixel per byte
             buffer_size = (128 * 128) >> 2;
             break;
         }
         case (DISPLAY_ADAPTER_BITMODE_GRAYSCALE_4_BIT): {
+            // We save 2 pixel per byte
             buffer_size = (128 * 128) >> 1;
             break;
         }
         case (DISPLAY_ADAPTER_BITMODE_COLOR_8_BIT): {
-            // TODO: Error
+            // TODO: Error; This display does not support color
             break;
         }
     }
@@ -65,6 +67,7 @@ struct display_adapter_descriptor display_adapter_create_zephyr_ssd1306_heap(enu
     struct display_capabilities cap;
     display_get_capabilities(display_device, &cap);
 
+    // Display has 128 * 64 pixels and we can fit 8 pixels into a byte
     uint16_t buffer_size = (128 * 64) >> 3;
 
     struct display_adapter_descriptor result = {
